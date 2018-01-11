@@ -1,0 +1,1 @@
+APP_CONFIG_FILE=/Users/wangzy/work/python/flask-proj/style-transfer/config/development.py python run.py
