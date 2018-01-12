@@ -1,0 +1,16 @@
+Flask_Mail==0.9.1
+Flask_PageDown==0.2.2
+itsdangerous==0.24
+Flask_Migrate==2.1.1
+SQLAlchemy==1.2.0
+bleach==2.1.2
+Flask==0.12.2
+Flask_Login==0.4.1
+Flask_HTTPAuth==3.2.3
+Flask_SQLAlchemy==2.3.2
+Flask_PyMongo==0.5.1
+faktory==0.3
+Markdown==2.6.11
+Flask_Bcrypt==0.7.1
+Werkzeug==0.14.1
+Flask_Uploads==0.2.1
