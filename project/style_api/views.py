@@ -85,26 +85,24 @@ def unauthorized_token():
 #     return jsonify({'token': g.user.generate_auth_token()})
 
 
-@style_api_blueprint.route('/api/v1_2/style/<string:style_id>', methods=['GET'])
-def api1_2_get_style(style_id):
-    try:
-        # Convert the string to an ObjectId instance
-        FS = GridFS(mongo.db.style_transfer)
-        file_object = FS.get(ObjectId(style_id))
-        response = make_response(file_object.read())
-        response.mimetype = file_object.content_type
-        return response
-    except NoFile:
-        abort(404)
+@style_api_blueprint.route('/api/v1_2/style/<string:filename>', methods=['GET'])
+def api1_2_get_style(filename):
+    # try:
+    #     # Convert the string to an ObjectId instance
+    #     FS = GridFS(mongo.db.style_transfer)
+    #     file_object = FS.get(ObjectId(style_id))
+    #     response = make_response(file_object.read())
+    #     response.mimetype = file_object.content_type
+    #     return response
+    # except NoFile:
+    #     abort(404)
+    return mongo.send_file(filename, base='style_transfer')
 
 
 @style_api_blueprint.route('/api/v1_2/style', methods=['POST'])
 def api1_2_create_style():
-    # filename = images.save(request.files['style_image'])
-    # image_url = images.url(filename)
+    
     f = request.files['style_image']
-    # FS = GridFS(mongo.db)
-    # oid = FS.put(f, content_type=f.content_type, filename=f.filename)
     mongo.save_file(f.filename, f, base='style_transfer', content_type=f.content_type)
 
-    return jsonify({'oid': str(f.filename)})
+    return jsonify({'filename': str(f.filename)})
