@@ -1,12 +1,10 @@
-
 from os.path import join, isfile
-
 from flask import Flask, render_template, make_response, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail
-from flask_uploads import UploadSet, IMAGES, configure_uploads, patch_request_class
+from flask_uploads import UploadSet, IMAGES, configure_uploads
 from flask_pagedown import PageDown
 from flask_migrate import Migrate
 from flask_httpauth import HTTPBasicAuth
@@ -31,8 +29,10 @@ login_manager = LoginManager()
 # Configure the image uploading via Flask-Uploads
 images = UploadSet('images', IMAGES)
 configure_uploads(app, images)
-patch_request_class(app)  # set maximum file size, default is 16MB
 
+from flask_pymongo import PyMongo
+
+mongo = PyMongo(app)
 # from project.models import User
 
 # @login_manager.user_loader
