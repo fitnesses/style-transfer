@@ -1,9 +1,7 @@
 from flask import Blueprint, request, jsonify, make_response, abort
 from .decorators import no_cache, etag
-from project import auth, auth_token, app, images, mongo
-from gridfs import GridFS
-from gridfs.errors import NoFile
-from bson.objectid import ObjectId
+from project import auth, auth_token, mongo, client
+
 
 style_api_blueprint = Blueprint('style_api', __name__)
 
@@ -104,5 +102,6 @@ def api1_2_create_style():
     
     f = request.files['style_image']
     mongo.save_file(f.filename, f, base='style_transfer', content_type=f.content_type)
-
+    
+    client.queue('style', args=(f.filename, ), queue='style')
     return jsonify({'filename': str(f.filename)})

@@ -8,6 +8,7 @@ from flask_uploads import UploadSet, IMAGES, configure_uploads
 from flask_pagedown import PageDown
 from flask_migrate import Migrate
 from flask_httpauth import HTTPBasicAuth
+from faktory import Client
 
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_object('config.default')
@@ -33,6 +34,9 @@ configure_uploads(app, images)
 from flask_pymongo import PyMongo
 
 mongo = PyMongo(app)
+
+
+client = Client(faktory="tcp://localhost:7419")
 # from project.models import User
 
 # @login_manager.user_loader
